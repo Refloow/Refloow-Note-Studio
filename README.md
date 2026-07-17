@@ -6,6 +6,10 @@ Preparing repo for the release
 # Writing repo in progress
 
 ## Features
+
+- Minimal dependencies
+   - there is just electron and thats it.
+
 - Encryption:
    - App wide encryption
    - Folder Specific Encryption
