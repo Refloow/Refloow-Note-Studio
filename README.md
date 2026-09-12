@@ -17,6 +17,12 @@ Your private thoughts belong to you. Refloow Note Studio delivers absolute priva
 
 You deserve a secure place to store your most important ideas, passwords, and personal reflections. Trusting external servers with this sensitive data often requires giving up control. Refloow Note Studio was built to give that control back to you. It provides a safe, organized space to manage your life without anyone looking over your shoulder. Every word you type stays exclusively on your own device, protected by robust local security measures.
 
+<p align="left">
+   <a href="https://apps.microsoft.com/detail/9N2FVZ220PGH">
+    <img src="https://get.microsoft.com/images/en-us%20dark.svg" alt="Get it from Microsoft" height="45" />
+  </a> 
+</p>
+
 
 ## Features
 
