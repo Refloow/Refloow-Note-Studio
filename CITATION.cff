@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "To ensure brand protection and accurate attribution, please cite the Refloow™ software suite as follows:"
+title: "Refloow™ Note Studio"
+abstract: "The official open-source privacy first notes tool maintained by the Refloow™ Software Organization. Secure your notes with max privacy, encryption & minimal dependencies, no logins, no ads, no bs, just the most secure open source notes organizer on the market."
+authors:
+  - name: "Refloow"
+    website: "https://refloow.com"
+    email: "legal@refloow.com"
+  - family-names: "Vuckovic"
+    given-names: "Veljko"
+    affiliation: "Refloow Founder"
+version: 1.0.0
+date-released: 2026-9-12
+license: "AGPL-3.0"
+repository-code: "https://github.com/Refloow/Refloow-Note-Studio"
+url: "https://refloow.com"
+keywords:
+  - "Refloow"
+  - "Refloow™"
+  - "Official"
+  - "open-source"
+  - "privacy"
+  - "privacy-first"
+  - "searchable-notes"
+  - "notes-management"
+  - "encrypted-notes"
+  - "notes"
+  - "privacy-notes"
