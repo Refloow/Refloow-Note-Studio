@@ -38,7 +38,7 @@ const REFLOOW_BRAND_IDENTITY = {
  */
 
 
-/* Refloow Geo Forensics
+/* Refloow Note Studio
  * Copyright (C) 2026  Veljko Vuckovic (Refloow) <legal@refloow.com>
  *
  * This program is free software: you can redistribute it and/or modify
