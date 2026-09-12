@@ -1,0 +1,192 @@
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #121212; color: #e0e0e0; margin: 0; display: flex; height: 100vh; overflow: hidden; }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #121212; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #555; }
+
+/* Reusable UI */
+.input-box { padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #333; background: #1e1e1e; color: white; outline: none; margin-bottom: 10px; width: 250px;}
+.btn { padding: 10px 20px; font-size: 14px; cursor: pointer; background: #007acc; color: white; border: none; border-radius: 5px; transition: 0.2s; }
+.btn:hover { background: #005f9e; }
+
+/* Screens & Layouts */
+#login-screen { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; z-index: 10; background: #121212; position: absolute; }
+#app-container { display: none; width: 100%; height: 100%; position: relative; }
+#sidebar-folders { width: 200px; background: #1a1a1a; border-right: 1px solid #333; display: flex; flex-direction: column; }
+/* Update Sidebar Layouts */
+#sidebar-main { width: 220px; background: #1a1a1a; border-right: 1px solid #333; display: flex; flex-direction: column; }
+.sidebar-section { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+#sidebar-notes { width: 250px; background: #1e1e1e; border-right: 1px solid #333; display: flex; flex-direction: column; }
+#main-content-area { flex-grow: 1; display: flex; flex-direction: column; background: #121212; position: relative; }
+
+/* Tracker Log Items */
+.log-item { display: flex; justify-content: space-between; padding: 12px 15px; border-bottom: 1px solid #333; color: #ccc; }
+.log-item:last-child { border-bottom: none; }
+.log-date { font-family: monospace; font-size: 14px; }
+#editor-area { flex-grow: 1; display: flex; flex-direction: column; background: #121212; }
+
+/* Lists & Items */
+.panel-header { padding: 15px; font-weight: bold; font-size: 14px; border-bottom: 1px solid #333; display: flex; justify-content: space-between; align-items: center; color: #888; text-transform: uppercase; }
+.list-container { flex-grow: 1; overflow-y: auto; padding: 10px; }
+.item { padding: 10px; margin-bottom: 5px; cursor: pointer; border-radius: 4px; color: #ccc; display: flex; justify-content: space-between; align-items: center; }
+.item-text { flex-grow: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.item:hover { background: #333; color: white; }
+.item.active { background: #007acc; color: white; }
+
+/* Delete Buttons */
+.delete-btn { background: transparent; border: none; color: #888; font-size: 16px; cursor: pointer; display: none; padding: 0 5px; }
+.item:hover .delete-btn { display: inline-block; }
+.delete-btn:hover { color: #ff5555; }
+
+/* Editor */
+.editor-header { display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid #333; }
+#note-title { background: transparent; border: none; color: white; font-size: 24px; outline: none; font-weight: bold; flex-grow: 1; margin-right: 15px; }
+#note-folder-select { background: #1e1e1e; color: white; border: 1px solid #333; padding: 8px; border-radius: 4px; outline: none; cursor: pointer; max-width: 150px; }
+#note-content { flex-grow: 1; background: transparent; border: none; color: #e0e0e0; font-size: 16px; padding: 20px; outline: none; resize: none; font-family: inherit; line-height: 1.5; }
+#empty-state { display: flex; align-items: center; justify-content: center; height: 100%; color: #555; font-size: 18px; }
+#editor-wrapper { display: none; flex-direction: column; height: 100%; }
+
+/* Floating Elements */
+#lock-btn { position: fixed; bottom: 20px; right: 20px; z-index: 100; background: #d32f2f; }
+#lock-btn:hover { background: #b71c1c; }
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 200; align-items: center; justify-content: center; }
+.modal-content { background: #1e1e1e; padding: 30px; border-radius: 8px; text-align: center; border: 1px solid #333; }
+
+/* Sidebar Toggles */
+.toggle-icon { cursor: pointer; font-size: 12px; user-select: none; color: #888; transition: color 0.2s; padding-right: 5px; }
+.toggle-icon:hover { color: #fff; }
+
+/* When Trackers are hidden */
+.collapsed-section { flex: 0 0 auto !important; }
+.collapsed-section .list-container { display: none; }
+.collapsed-section #new-tracker-btn { display: none; } /* Hides the + button to keep it clean */
+
+
+/* Sidebar Action Buttons */
+.item-actions { display: none; gap: 5px; }
+.item:hover .item-actions { display: flex; }
+.action-btn { background: transparent; border: none; color: #888; font-size: 14px; cursor: pointer; padding: 0 4px; }
+.action-btn:hover { color: #fff; }
+.action-btn.danger:hover { color: #ff5555; }
+
+/* Drag & Drop Visuals */
+.item[draggable="true"] { cursor: grab; }
+.item[draggable="true"]:active { cursor: grabbing; }
+.item.dragging { opacity: 0.4; background: #333; border: 1px dashed #888; }
+.item.drag-over { border-top: 2px solid #007acc; } /* Highlights where it will be dropped */
+
+/* Checkbox Styling for Selection Mode */
+.note-checkbox { margin-right: 10px; cursor: pointer; accent-color: #007acc; width: 16px; height: 16px; }
+
+/* OS File Drag & Drop */
+#sidebar-notes.file-drag-over { 
+    background: #1a2938; /* Slight blue tint */
+    border: 1px dashed #007acc; 
+}
+
+
+/* Tracker Heatmap */
+#heatmap-grid {
+    display: grid;
+    grid-template-rows: repeat(7, 15px);
+    grid-auto-flow: column;
+    gap: 4px;
+    width: max-content; /* Prevents squishing */
+}
+
+.heatmap-day {
+    width: 15px;
+    height: 15px;
+    background-color: #161a22; /* Empty day */
+    border-radius: 3px;
+    cursor: help;
+    box-sizing: border-box;
+    transition: transform 0.1s;
+}
+
+.heatmap-day:hover {
+    transform: scale(1.2);
+    border: 1px solid #fff;
+}
+
+/* Intensity Levels */
+.heatmap-day[data-level="1"] { background-color: #22432b; }
+.heatmap-day[data-level="2"] { background-color: #336b37; }
+.heatmap-day[data-level="3"] { background-color: #58a248; }
+.heatmap-day[data-level="4"] { background-color: #72ce5c; }
+
+
+/* Update Body to stack vertically */
+body { flex-direction: column; overflow: hidden; }
+
+/* Adjust app containers to subtract titlebar height */
+#login-screen, #app-container { height: calc(100vh - 35px); position: relative; }
+
+/* VS Code Style Titlebar */
+#titlebar {
+    height: 35px; background: #181a1f; display: flex; justify-content: space-between; align-items: center;
+    -webkit-app-region: drag; border-bottom: 1px solid #333; user-select: none; z-index: 9999;
+}
+.no-drag { -webkit-app-region: no-drag; }
+
+.titlebar-left, .titlebar-right { display: flex; align-items: center; height: 100%; }
+.titlebar-center { position: relative; width: 40%; max-width: 600px; }
+
+/* Global Search */
+#global-search-bar { width: 100%; background: #22252b; border: 1px solid #333; border-radius: 6px; padding: 4px 10px; color: #ccc; outline: none; font-size: 13px; text-align: center; transition: 0.2s; }
+#global-search-bar:focus { background: #1e1e1e; border-color: #007acc; text-align: left; }
+
+/* Window Controls */
+.window-btn { background: transparent; border: none; color: #ccc; height: 100%; width: 45px; cursor: pointer; font-size: 14px; }
+.window-btn:hover { background: #333; }
+.window-btn.close:hover { background: #e81123; color: white; }
+
+/* About Menu & Dropdowns */
+.about-menu-container { position: relative; margin-left: 10px; }
+.titlebar-btn { background: transparent; border: none; color: #ccc; cursor: pointer; padding: 4px 8px; border-radius: 4px; font-size: 13px; }
+.titlebar-btn:hover { background: #333; }
+
+.dropdown-content { display: none; position: absolute; background: #1e1e1e; border: 1px solid #333; box-shadow: 0px 8px 16px rgba(0,0,0,0.5); border-radius: 6px; padding: 10px; z-index: 10000; max-height: 400px; overflow-y: auto; top: 30px; }
+.dropdown-content a, .search-result { color: #ccc; text-decoration: none; display: block; padding: 8px; cursor: pointer; border-radius: 4px; font-size: 13px; }
+.dropdown-content a:hover, .search-result:hover { background: #333; }
+.search-result { display: flex; justify-content: space-between; align-items: center; }
+.search-type { font-size: 10px; color: #888; background: #2a2d32; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; }
+
+/* Window Controls Fix */
+.window-btn { background: transparent; border: none; color: #ccc; height: 100%; width: 45px; cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+.window-btn:hover { background: #333; }
+.window-btn.close:hover { background: #e81123; color: white; }
+
+/* --- Dynamic User Settings --- */
+
+/* Connects the note textarea to JS */
+#note-content { font-size: var(--editor-font-size, 14px) !important; }
+
+/* Light Theme Overrides */
+body.light-theme { background-color: #f5f5f5 !important; color: #111 !important; }
+body.light-theme #titlebar { background: #e0e0e0 !important; border-bottom: 1px solid #ccc !important; }
+body.light-theme .titlebar-btn, body.light-theme .window-btn { color: #333 !important; }
+body.light-theme .titlebar-btn:hover, body.light-theme .window-btn:hover { background: #ccc !important; }
+body.light-theme #global-search-bar { background: #fff !important; color: #111 !important; border: 1px solid #ccc !important; }
+
+body.light-theme #app-container, body.light-theme #login-screen { background-color: #f5f5f5 !important; }
+body.light-theme #sidebar-main, body.light-theme #sidebar-notes, body.light-theme #sidebar-events { background: #ffffff !important; border-right: 1px solid #ddd !important; }
+body.light-theme .sidebar-section { border-top: 1px solid #ddd !important; }
+body.light-theme .panel-header { border-bottom: 1px solid #ddd !important; color: #333 !important; }
+body.light-theme .item { color: #333 !important; }
+body.light-theme .item:hover { background: #f0f0f0 !important; }
+body.light-theme .item.active { background: #007acc !important; color: white !important; }
+
+body.light-theme .input-box, body.light-theme #note-content, body.light-theme #note-title { background: #fff !important; color: #111 !important; border: 1px solid #ccc !important; }
+body.light-theme .modal-content { background: #fff !important; color: #111 !important; border: 1px solid #ccc !important; }
+body.light-theme #tracker-logs, body.light-theme #heatmap-wrapper, body.light-theme .month-block { background: #fff !important; border: 1px solid #ccc !important; }
+
+body.light-theme .btn { background: #ddd !important; color: #111 !important; }
+body.light-theme .btn:hover { background: #ccc !important; }
+body.light-theme .btn[style*="#28a745"] { background: #28a745 !important; color: white !important; }
+
+body.light-theme .dropdown-content { background: #fff !important; border: 1px solid #ccc !important; box-shadow: 0px 8px 16px rgba(0,0,0,0.1) !important; }
+body.light-theme .dropdown-content a { color: #333 !important; }
+body.light-theme .dropdown-content a:hover { background: #f0f0f0 !important; }

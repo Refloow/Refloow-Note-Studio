@@ -1,0 +1,114 @@
+{
+  "name": "refloow-note-studio",
+  "version": "1.0.0",
+  "description": "A lightweight, locally encrypted, offline-first notes and event tracking vault. Part of the Refloow suite.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "server": "node src/server.js",
+    "package": "electron-builder --win --publish never",
+    "package:mac": "electron-builder --mac --publish never",
+    "package:linux": "electron-builder --linux --publish never"
+  },
+  "author": "Veljko Vuckovic",
+  "license": "AGPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Refloow/Refloow-Note-Studio.git"
+  },
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "electron": "40.4.0",
+    "electron-builder": "26.7.0"
+  },
+  "build": {
+    "appId": "com.refloow.notestudio",
+    "productName": "Refloow Note Studio",
+    "copyright": "Copyright © Veljko Vuckovic Refloow",
+    "asar": true,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "**/*",
+      "!**/*.ts",
+      "!npm-debug.log*",
+      "!**/.git",
+      "!**/.vscode",
+      "!**/.idea",
+      "!**/*.map",
+      "!node_modules/.bin/**/*",
+      "!node_modules/electron/**/*",
+      "!dist/electron/**/*.js"
+    ],
+    "win": {
+      "icon": "img/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "appx",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "appx": {
+      "identityName": "Refloow.RefloowNoteStudio", 
+      "publisher": "CN=8281F212-0778-4AAA-A785-4B72BFF348A9",
+      "publisherDisplayName": "Refloow",
+      "applicationId": "RefloowNoteStudio",
+      "backgroundColor": "#121212"
+    },
+    "mac": {
+      "icon": "img/iconMAC.png",
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "linux": {
+      "icon": "img/Refloow-Note-Studio.png",
+      "target": [
+        "AppImage",
+        "deb",
+        "snap"
+      ],
+      "category": "Utility",
+      "maintainer": "Veljko Vuckovic <legal@refloow.com>",
+      "description": "Secure offline encrypted notes with max privacy"
+    },
+    "snap": {
+      "summary": "Secure offline encrypted notes with max privacy!",
+      "description": "Refloow™ Note Studio secure your notes with max privacy, encryption & minimal dependencies, no logins, no ads, no bs, just the most secure open source notes organizer on the market.",
+      "confinement": "strict",
+      "plugs": [
+        "default",
+        "removable-media"
+      ]
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "Refloow",
+      "repo": "Refloow-Note-Studio"
+    },
+    "npmRebuild": false,
+    "nsis": {
+      "oneClick": false,
+      "license": "LICENSE",
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "img/icon.ico",
+      "shortcutName": "Refloow Note Studio",
+      "createDesktopShortcut": true,
+      "perMachine": false,
+      "uninstallDisplayName": "Refloow Note Studio"
+    }
+  }
+}

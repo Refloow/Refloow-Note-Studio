@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refloow Note Studio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="titlebar">
+        <div class="titlebar-left">
+            <span style="font-weight: bold; margin-left: 15px; color: #007acc;">Refloow Note Studio</span>
+            <div class="about-menu-container no-drag">
+                <button class="titlebar-btn" id="about-btn">About</button>
+                <div id="about-dropdown" class="dropdown-content">
+                    <p style="margin: 0 0 5px 0; font-weight: bold;">Refloow Note Studio</p>
+                    <p style="margin: 0 0 15px 0; font-size: 11px; color: #888;">Created by Veljko Vuckovic (Refloow)</p>
+                    <a onclick="window.api.openLink('https://refloow.com')">🌐 Refloow.com</a>
+                    <a onclick="window.api.openLink('https://github.com/Refloow/Refloow-Note-Studio')">💻 GitHub</a>
+                    <a onclick="window.api.openLink('https://discord.gg/nNSDPvKBjt')">💬 Discord</a>
+                </div>
+                <button class="titlebar-btn" id="settings-btn">⚙ Settings</button>
+            </div>
+        </div>
+        
+        <div class="titlebar-center no-drag">
+            <input type="text" id="global-search-bar" placeholder="Search folders and notes...">
+            <div id="search-dropdown" class="dropdown-content" style="width: 100%; top: 35px; left: 0;"></div>
+        </div>
+        
+<div class="titlebar-right no-drag">
+            <button class="window-btn" id="min-btn">&#x2014;</button> <button class="window-btn" id="max-btn">&#x25A1;</button> <button class="window-btn close" id="close-btn">&#x2715;</button> </div>
+    </div>
+
+    <div id="login-screen">
+        <h2 style="margin-bottom: 20px;">Refloow Note Studio</h2>
+        <img src="./img/Refloow Note Studio2.png">
+        <input type="password" id="master-password" class="input-box" placeholder="Enter Master Password">
+        <button id="login-btn" class="btn">Unlock Vault</button>
+        <p id="login-error" style="color: #ff5555; display: none; margin-top: 10px;">Invalid password or corrupted file.</p>
+    </div>
+
+<div id="app-container">
+<div id="sidebar-main">
+            <div class="sidebar-section">
+                <div class="panel-header">Folders <button class="btn" id="new-folder-btn" style="padding: 2px 8px;">+</button></div>
+                <div id="folder-list" class="list-container"></div>
+            </div>
+            
+            <div class="sidebar-section" id="trackers-section" style="border-top: 1px solid #333;">
+                <div class="panel-header" style="justify-content: flex-start;">
+                    <span id="tracker-toggle-icon" class="toggle-icon">▼</span>
+                    <span style="flex-grow: 1; margin-left: 8px;">Trackers</span>
+                    <button class="btn" id="new-tracker-btn" style="padding: 2px 8px;">+</button>
+                </div>
+                <div id="tracker-list" class="list-container"></div>
+            </div>
+        </div>
+        
+<div id="sidebar-notes">
+            <div class="panel-header">Notes <button class="btn" id="new-note-btn" style="padding: 2px 8px;">+</button></div>
+            <div id="note-list" class="list-container"></div>
+            
+            <div id="notes-bulk-panel" style="border-top: 1px solid #333; padding: 10px; background: #1a1a1a; display: flex; flex-direction: column; gap: 8px;">
+                <button id="toggle-selection-btn" class="btn" style="background: #333; font-size: 12px; width: 100%;">Enable Selection</button>
+                <div style="display: flex; gap: 5px;">
+                    <button id="bulk-move-btn" class="btn" style="flex: 1; font-size: 12px; padding: 8px; background: #333;" title="Move Notes">Move All</button>
+                    <button id="bulk-delete-btn" class="btn" style="flex: 1; font-size: 12px; background: #333; padding: 8px;" title="Delete Notes">Delete All</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="main-content-area">
+            <div id="empty-state">Select a note or tracker</div>
+            
+            <div id="editor-wrapper">
+                <div class="editor-header">
+                    <input type="text" id="note-title" placeholder="Note Title...">
+                    <select id="note-folder-select" title="Move Note to Folder"></select>
+                </div>
+                <textarea id="note-content" placeholder="Start typing your secure note here..."></textarea>
+            </div>
+
+          <div id="tracker-wrapper" style="display: none;">
+                <div class="editor-header">
+                    <h2 id="tracker-title" style="margin: 0; color: white;">Tracker Name</h2>
+                    <button id="log-tracker-btn" class="btn" style="background: #28a745;">+ Log Event Now</button>
+                </div>
+                <div style="padding: 20px;">
+                    <h3 style="color: #888; font-weight: normal; margin-top: 0; margin-bottom: 20px;">Stats: <span id="tracker-stats" style="color: #e0e0e0;"></span></h3>
+                    
+                   <div id="heatmap-wrapper" style="margin-bottom: 30px; overflow-x: auto; background: #1e1e1e; padding: 15px; border-radius: 8px; border: 1px solid #333;">
+                        <div style="position: relative; width: max-content;">
+                            <div id="heatmap-months" style="position: relative; height: 20px; font-size: 12px; color: #888;"></div>
+                            <div id="heatmap-grid"></div>
+                        </div>
+                    </div>
+
+                    <div id="tracker-logs" class="list-container" style="background: #1e1e1e; border-radius: 8px; border: 1px solid #333; max-height: 400px;">
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <button id="lock-btn" class="btn">Lock App</button>
+    </div>
+
+    <div id="tracker-modal" class="modal">
+        <div class="modal-content">
+            <h3>New Tracker</h3>
+            <input type="text" id="tracker-name-input" class="input-box" placeholder="e.g., Domain Expirations"><br><br>
+            <button id="confirm-tracker-btn" class="btn">Create</button>
+            <button class="btn cancel-btn" style="background:#555;">Cancel</button>
+        </div>
+    </div>
+
+    <div id="folder-modal" class="modal">
+        <div class="modal-content">
+            <h3>New Folder</h3>
+            <input type="text" id="folder-name-input" class="input-box" placeholder="Folder Name"><br><br>
+            <button id="confirm-folder-btn" class="btn">Create</button>
+            <button class="btn cancel-btn" style="background:#555;">Cancel</button>
+        </div>
+
+    </div>
+
+    <div id="password-modal" class="modal">
+        <div class="modal-content">
+            <h3>Set Master Password</h3>
+            <p style="color: #aaa; font-size: 14px; margin-bottom: 20px;">Leave blank to remove encryption completely.</p>
+            <input type="password" id="new-password-input" class="input-box" placeholder="Enter secure password"><br><br>
+            <button id="confirm-password-btn" class="btn">Apply & Save</button>
+            <button class="btn cancel-btn" style="background:#555;">Cancel</button>
+        </div>
+    </div>
+
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content" style="max-width: 300px;">
+            <h3 id="confirm-title" style="margin-top: 0;">Are you sure?</h3>
+            <p id="confirm-message" style="color: #aaa; font-size: 14px; margin-bottom: 20px;"></p>
+            <button id="confirm-yes-btn" class="btn" style="background: #d32f2f;">Yes, Delete</button>
+            <button id="confirm-no-btn" class="btn" style="background: #555;">Cancel</button>
+        </div>
+    </div>
+
+    <div id="prompt-modal" class="modal">
+        <div class="modal-content" style="max-width: 300px;">
+            <h3 id="prompt-title" style="margin-top: 0;">Input Required</h3>
+            <input type="text" id="prompt-input" class="input-box" style="width: 100%; box-sizing: border-box;"><br><br>
+            <button id="prompt-submit-btn" class="btn">Submit</button>
+            <button id="prompt-cancel-btn" class="btn" style="background: #555;">Cancel</button>
+        </div>
+    </div>
+
+<div id="move-all-modal" class="modal">
+        <div class="modal-content" style="max-width: 300px;">
+            <h3 id="move-modal-title" style="margin-top: 0;">Move Notes</h3>
+            <p style="color: #aaa; font-size: 14px; margin-bottom: 20px;">Select destination folder:</p>
+            <select id="move-all-select" class="input-box" style="width: 100%; box-sizing: border-box;"></select><br><br>
+            <button id="move-all-confirm-btn" class="btn">Move</button>
+            <button class="btn cancel-btn" style="background: #555;">Cancel</button>
+        </div>
+    </div>
+
+
+
+    <div id="settings-modal" class="modal" style="z-index: 30000; background: rgba(0,0,0,0.8);">
+        <div class="modal-content" style="width: 450px; max-width: 90%;">
+            <h2 style="margin-top: 0; border-bottom: 1px solid #333; padding-bottom: 10px;">User Settings</h2>
+            
+            <div style="margin: 25px 0;">
+                <label style="display: flex; justify-content: space-between; margin-bottom: 10px; color: #ccc;">
+                    <span>UI Scale</span> <span id="scale-value">100%</span>
+                </label>
+                <input type="range" id="ui-scale-slider" min="100" max="150" step="5" value="100" style="width: 100%; cursor: pointer;">
+            </div>
+
+            <div style="margin: 25px 0;">
+                <label style="display: flex; justify-content: space-between; margin-bottom: 10px; color: #ccc;">
+                    <span>Note Font Size</span> <span id="font-size-value">14px</span>
+                </label>
+                <input type="range" id="font-size-slider" min="10" max="30" step="1" value="14" style="width: 100%; cursor: pointer;">
+            </div>
+
+            <div style="margin: 25px 0;">
+                <label style="display: block; margin-bottom: 10px; color: #ccc;">App Theme</label>
+                <div style="display: flex; gap: 10px;">
+                    <button id="theme-dark-btn" class="btn" style="flex: 1; background: #1a1a1a; border: 2px solid #007acc;">Dark</button>
+                    <button id="theme-light-btn" class="btn" style="flex: 1; background: #e0e0e0; color: #111; border: 2px solid transparent;">Light</button>
+                </div>
+            </div>
+
+            <div style="text-align: right; margin-top: 30px;">
+                <button class="btn cancel-btn" style="background: #007acc; width: 100px;">Done</button>
+            </div>
+        </div>
+    </div>
+
+            <div id="folder-context-menu" class="dropdown-content" style="position: fixed; display: none; z-index: 20000; min-width: 160px;">
+        </div>
+
+    <script src="renderer.js"></script>
+
+    
+</body>
+</html>
