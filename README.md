@@ -25,6 +25,14 @@ You deserve a secure place to store your most important ideas, passwords, and pe
 
 <img width="957" height="561" alt="Screenshot 2026-09-13 021408" src="https://github.com/user-attachments/assets/c150d5c3-0daa-4179-a8ee-98c8e582e0f6" />
 
+---
+| App UI - Instant Search | App UI - Encrypted Folder |
+| :---: | :---: |
+| <img width="2880" height="1704" alt="Screenshot 2026-09-12 225230" src="https://github.com/user-attachments/assets/5d241590-ea3d-462a-9b2a-49d5eadfba19" /> | <img width="2880" height="1706" alt="Screenshot 2026-09-12 225113" src="https://github.com/user-attachments/assets/104e9846-c808-48e0-8cb1-844e1d33cb5e" /> |
+| **App UI - Unlocking folder** | **App UI - Heatmap Trackers)** |
+| <img width="2878" height="1696" alt="Screenshot 2026-09-12 225741" src="https://github.com/user-attachments/assets/d78e8d1c-b937-4c94-aac2-8773b4939d68" /> | <img width="2880" height="1702" alt="Screenshot 2026-09-12 225359" src="https://github.com/user-attachments/assets/2e998638-fc58-4a79-b90a-900a67aef2dd" />
+ |
+
 ## Features
 
 - Minimal dependencies
