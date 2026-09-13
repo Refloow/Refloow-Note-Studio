@@ -23,6 +23,7 @@ You deserve a secure place to store your most important ideas, passwords, and pe
   </a> 
 </p>
 
+<img width="957" height="561" alt="Screenshot 2026-09-13 021408" src="https://github.com/user-attachments/assets/c150d5c3-0daa-4179-a8ee-98c8e582e0f6" />
 
 ## Features
 
